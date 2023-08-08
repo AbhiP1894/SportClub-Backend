@@ -40,12 +40,12 @@ pipeline {
         //     }
         // }
 
-        // stage('package') {
-        //     steps {
-        //         echo 'Pakage'
-        //         sh 'mvn clean package'
-        //     }
-        // }
+        stage('package') {
+            steps {
+                echo 'Pakage'
+                sh 'mvn clean package'
+            }
+        }
         stage('Docker Build') {
             // when {
             //     branch 'release'
