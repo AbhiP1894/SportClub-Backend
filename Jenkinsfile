@@ -52,7 +52,7 @@ pipeline {
             // }
             // stage('Build') {
                 steps {
-                    sh 'docker build -t abhi_patil/SportClub-Backend:latest .'
+                    sh 'docker build -t abhi_patil/sportslub-backend:latest .'
                 }
             // steps {
             //     script {
@@ -62,7 +62,7 @@ pipeline {
         }
         stage('scan') {
             steps { 
-                sh 'trivy abhi_patil/SportClub-Backend:latest'
+                sh 'trivy abhi_patil/sportslub-backend:latest'
             }
         }
 
