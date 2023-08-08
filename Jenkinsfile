@@ -50,15 +50,20 @@ pipeline {
             // when {
             //     branch 'release'
             // }
-            steps {
-                script {
-                   sh docker.build("abhi_docker/sportsclub:latest")
+            stage('Build') {
+                steps {
+                    sh 'docker build -t AbhiP1894/SportClub-Backend:latest .'
                 }
             }
+            // steps {
+            //     script {
+            //        sh docker.build("abhi_docker/sportsclub:latest")
+            //     }
+            // }
         }
         stage('scan') {
             steps { 
-                sh 'trivy image abhi_docker/sportsclub:latest'
+                sh 'trivy AbhiP1894/SportClub-Backend:latest'
             }
         }
 
