@@ -62,7 +62,7 @@ pipeline {
         }
         stage('snykscan') {
             steps { 
-                sh 'snyk image abhi_patil/sportclub-backend:latest'
+                sh 'snyk test abhi_patil/sportclub-backend:latest'
             }
         }
          // stage('SnykScanning') {
