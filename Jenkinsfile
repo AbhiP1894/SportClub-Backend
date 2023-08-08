@@ -60,11 +60,18 @@ pipeline {
             //     }
             // }
         }
-        stage('scan') {
+        stage('snykscan') {
             steps { 
-                sh 'trivy image abhi_patil/sportclub-backend:latest'
+                sh 'snyk image abhi_patil/sportclub-backend:latest'
             }
         }
+         // stage('SnykScanning') {
+         //        steps {
+         //            // One or more steps need to be included within the steps block.
+         //            snykSecurity snykInstallation: 'Snyk',
+         //            snykTokenId: 'snyk-api-abhijieet'
+         //        }
+         //    }
 
         // stage('Pushing Docker Image to Jfrog Artifactory') {
         //     when {
