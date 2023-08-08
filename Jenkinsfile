@@ -50,11 +50,10 @@ pipeline {
             // when {
             //     branch 'release'
             // }
-            stage('Build') {
+            // stage('Build') {
                 steps {
                     sh 'docker build -t AbhiP1894/SportClub-Backend:latest .'
                 }
-            }
             // steps {
             //     script {
             //        sh docker.build("abhi_docker/sportsclub:latest")
