@@ -1,6 +1,6 @@
-FROM build AS vulnscan
-COPY --from=aquasec/trivy:latest /usr/local/bin/trivy /usr/local/bin/trivy
-RUN trivy rootfs --no-progress /
+# FROM build AS vulnscan
+# COPY --from=aquasec/trivy:latest /usr/local/bin/trivy /usr/local/bin/trivy
+# RUN trivy rootfs --no-progress /
 
 FROM eclipse-temurin:17
 LABEL mentainer="javaguides.net@gmail.com"
