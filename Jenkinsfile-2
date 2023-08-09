@@ -65,6 +65,11 @@ pipeline {
                 sh 'trivy image --severity HIGH,CRITICAL abhi_patil/sportclub-backend:latest'
             }
         }
+        stage('result') {
+            steps {
+                sh 'trivy image -f json -o results.json abhi_patil/sportclub-backend:latest'
+            }
+        }
        
 
 
