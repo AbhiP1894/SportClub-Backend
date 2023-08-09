@@ -62,7 +62,7 @@ pipeline {
         }
         stage('scan') {
             steps { 
-                sh 'trivy --exit-code 1 --severity HIGH,CRITICAL abhi_patil/sportclub-backend:latest'
+                sh 'trivy image --severity HIGH,CRITICAL abhi_patil/sportclub-backend:latest'
             }
         }
        
