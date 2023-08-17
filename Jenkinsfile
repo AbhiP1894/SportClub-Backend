@@ -70,7 +70,7 @@ pipeline {
           stage('SnykScanning') {
                  steps {
                      // sh 'snyk test abhi_patil/sportclub-backend:latest',
-                      snykInstallation: 'Snyk',
+                      snykSecurity snykInstallation: 'Snyk',
                       snykTokenId: 'snyk-api-abhijieet',
                       targetFile: 'Dockerfile'
                      // One or more steps need to be included within the steps block.
