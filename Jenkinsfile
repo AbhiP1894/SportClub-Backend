@@ -12,7 +12,7 @@ pipeline {
             jdk 'JDK11'
     }
 
-    // stages {
+    stages {
     //     stage('validate') {
     //         steps {
     //             echo 'VALIDATE'
