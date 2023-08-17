@@ -74,7 +74,7 @@ pipeline {
         //}
           stage('SnykScanning') {
                  steps {
-                     'snyk test abhi_patil/sportclub-backend:latest',
+                     sh 'snyk test abhi_patil/sportclub-backend:latest',
                       snykInstallation: 'Snyk',
                       snykTokenId: 'snyk-api-abhijieet',
                       targetFile: 'Dockerfile'
