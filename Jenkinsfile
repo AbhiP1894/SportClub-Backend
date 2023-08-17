@@ -60,9 +60,13 @@ pipeline {
             //     }
             // }
         }
-        stage('snykscan') {
+        stage('snyk Authentication') {
             steps { 
                 sh 'snyk config set 200~8e6e965d-98b5-4a16-af75-89d35e9618ac'
+            }
+        }
+        stage('snykscan') {
+            steps { 
                 sh 'snyk test abhi_patil/sportclub-backend:latest'
             }
         }
