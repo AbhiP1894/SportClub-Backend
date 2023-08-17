@@ -1,9 +1,9 @@
 /* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth, NglParseError */
 pipeline {
-    // environment {
-    //     DATE = new Date().format('yy.M')
-    //     TAG = "${DATE}.${BUILD_NUMBER}"
-    // }
+    environment {
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+    }
     agent {
         label 'linux'
     }
@@ -26,12 +26,12 @@ pipeline {
             }
         }
 
-        // stage('test') {
-        //     steps {
-        //         echo 'Test'
-        //         sh 'mvn clean test'
-        //     }
-        // }
+        stage('test') {
+            steps {
+                echo 'Test'
+                sh 'mvn clean test'
+            }
+        }
 
         // stage('Sonar Analysis') {
         //     steps {
