@@ -60,12 +60,19 @@ pipeline {
             //     }
             // }
         }
-        stage('snyk Authentication') {
-            steps { 
+      //  stage('snyk Authentication') {
+        //    steps { 
                 // sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
-                sh 'snyk auth'
+          //      sh 'snyk auth'
+            //}
+        //}
+        stage('SnykScanning') {
+                steps {
+                    // One or more steps need to be included within the steps block.
+                    snykSecurity snykInstallation: 'Snyk',
+                    snykTokenId: 'snyk-api-abhijieet'
+                }
             }
-        }
         stage('snykscan') {
             steps { 
                 sh 'snyk test abhi_patil/sportclub-backend:latest'
