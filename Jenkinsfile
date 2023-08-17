@@ -74,9 +74,13 @@ pipeline {
         //}
           stage('SnykScanning') {
                  steps {
+                     'snyk test abhi_patil/sportclub-backend:latest',
+                      snykInstallation: 'Snyk',
+                      snykTokenId: 'snyk-api-abhijieet',
+                      targetFile: 'Dockerfile'
                      // One or more steps need to be included within the steps block.
-                     snykSecurity snykInstallation: 'Snyk',
-                     snykTokenId: 'snyk-api-abhijieet'
+                     // snykSecurity snykInstallation: 'Snyk',
+                     // snykTokenId: 'snyk-api-abhijieet'
                      // sh 'snyk test abhi_patil/sportclub-backend:latest'
                  }
              }
