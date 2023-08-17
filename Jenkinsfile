@@ -76,8 +76,8 @@ pipeline {
                  steps {
                      // One or more steps need to be included within the steps block.
                      snykSecurity snykInstallation: 'Snyk',
-                     snykTokenId: 'snyk-api-abhijieet',
-                          sh 'snyk test abhi_patil/sportclub-backend:latest'
+                     snykTokenId: 'snyk-api-abhijieet'
+                     sh 'snyk test abhi_patil/sportclub-backend:latest'
                  }
              }
 
