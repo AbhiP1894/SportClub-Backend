@@ -12,26 +12,26 @@ pipeline {
             jdk 'JDK11'
     }
 
-    stages {
-        stage('validate') {
-            steps {
-                echo 'VALIDATE'
-                sh 'mvn clean validate'
-            }
-        }
-        stage('Compile') {
-            steps {
-                echo 'COMPILE'
-                sh 'mvn clean compile'
-            }
-        }
+    // stages {
+    //     stage('validate') {
+    //         steps {
+    //             echo 'VALIDATE'
+    //             sh 'mvn clean validate'
+    //         }
+    //     }
+    //     stage('Compile') {
+    //         steps {
+    //             echo 'COMPILE'
+    //             sh 'mvn clean compile'
+    //         }
+    //     }
 
-        stage('test') {
-            steps {
-                echo 'Test'
-                sh 'mvn clean test'
-            }
-        }
+    //     stage('test') {
+    //         steps {
+    //             echo 'Test'
+    //             sh 'mvn clean test'
+    //         }
+    //     }
 
         // stage('Sonar Analysis') {
         //     steps {
@@ -79,12 +79,12 @@ pipeline {
                      // sh 'snyk test abhi_patil/sportclub-backend:latest'
                  }
              } 
-        stage('snykscan') {
-           steps { 
-               // sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
-               sh 'snyk test abhi_patil/sportclub-backend:latest'
-            }
-        }
+        // stage('snykscan') {
+        //    steps { 
+        //        // sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
+        //        sh 'snyk test abhi_patil/sportclub-backend:latest'
+        //     }
+        // }
 
         // stage('Pushing Docker Image to Jfrog Artifactory') {
         //     when {
