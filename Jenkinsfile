@@ -52,6 +52,7 @@ pipeline {
             // }
             // stage('Build') {
                 steps {
+                    sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
                     sh 'docker build -t abhi_patil/sportclub-backend:latest .'
                     sh 'snyk test abhi_patil/sportclub-backend:latest'
                 }
