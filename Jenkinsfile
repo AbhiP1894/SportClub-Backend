@@ -52,9 +52,9 @@ pipeline {
             // }
             // stage('Build') {
                 steps {
-                    sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
+                    // sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
                     sh 'docker build -t abhi_patil/sportclub-backend:latest .'
-                    sh 'snyk test abhi_patil/sportclub-backend:latest'
+                    // sh 'snyk test abhi_patil/sportclub-backend:latest'
                 }
             // steps {
             //     script {
@@ -69,8 +69,11 @@ pipeline {
             //}
         //}
        
-          // stage('SnykScanning') {
-          //        steps {
+          stage('SnykScanning') {
+                 steps {
+                     sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
+                     sh 'snyk auth'
+                     sh 'snyk test abhi_patil/sportclub-backend:latest'
           //            // sh 'snyk test abhi_patil/sportclub-backend:latest',
           //             snykSecurity snykInstallation: 'Snyk',
           //             snykTokenId: 'snyk-api-abhijieet'
@@ -79,8 +82,8 @@ pipeline {
           //            // snykSecurity snykInstallation: 'Snyk',
           //            // snykTokenId: 'snyk-api-abhijieet'
           //            // sh 'snyk test abhi_patil/sportclub-backend:latest'
-          //        }
-          //    } 
+                 }
+             } 
         // stage('snykscan') {
         //    steps { 
         //        // sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
