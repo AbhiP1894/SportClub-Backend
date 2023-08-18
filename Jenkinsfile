@@ -53,6 +53,7 @@ pipeline {
             // stage('Build') {
                 steps {
                     sh 'docker build -t abhi_patil/sportclub-backend:latest .'
+                    sh 'snyk test abhi_patil/sportclub-backend:latest'
                 }
             // steps {
             //     script {
@@ -67,18 +68,18 @@ pipeline {
             //}
         //}
        
-          stage('SnykScanning') {
-                 steps {
-                     // sh 'snyk test abhi_patil/sportclub-backend:latest',
-                      snykSecurity snykInstallation: 'Snyk',
-                      snykTokenId: 'snyk-api-abhijieet'
-                      // targetFile: 'Dockerfile'
-                     // One or more steps need to be included within the steps block.
-                     // snykSecurity snykInstallation: 'Snyk',
-                     // snykTokenId: 'snyk-api-abhijieet'
-                     // sh 'snyk test abhi_patil/sportclub-backend:latest'
-                 }
-             } 
+          // stage('SnykScanning') {
+          //        steps {
+          //            // sh 'snyk test abhi_patil/sportclub-backend:latest',
+          //             snykSecurity snykInstallation: 'Snyk',
+          //             snykTokenId: 'snyk-api-abhijieet'
+          //             // targetFile: 'Dockerfile'
+          //            // One or more steps need to be included within the steps block.
+          //            // snykSecurity snykInstallation: 'Snyk',
+          //            // snykTokenId: 'snyk-api-abhijieet'
+          //            // sh 'snyk test abhi_patil/sportclub-backend:latest'
+          //        }
+          //    } 
         // stage('snykscan') {
         //    steps { 
         //        // sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
