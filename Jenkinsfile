@@ -1,9 +1,9 @@
 /* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth, NglParseError */
 pipeline {
-    // environment {
-    //     DATE = new Date().format('yy.M')
-    //     TAG = "${DATE}.${BUILD_NUMBER}"
-    // }
+    environment {
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+    }
     agent {
         label 'linux'
     }
@@ -71,8 +71,8 @@ pipeline {
        
           stage('SnykScanning') {
                  steps {
-                     sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
-                     sh 'snyk auth'
+                     sh 'snyk config set snyk-api-abhijieet'
+                    
                      sh 'snyk test abhi_patil/sportclub-backend:latest'
           //            // sh 'snyk test abhi_patil/sportclub-backend:latest',
           //             snykSecurity snykInstallation: 'Snyk',
