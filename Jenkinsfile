@@ -4,9 +4,9 @@ pipeline {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
     }
-  //  agent {
-    //    label 'linux'
-    //}
+    agent {
+        label 'any'
+    }
     tools {
             maven 'Maven'
             jdk 'JDK11'
@@ -72,11 +72,11 @@ pipeline {
        
           stage('SnykScanning') {
                  steps {
-                     bat 'snyk config set snyk-api-abhijieet'
+                    // bat 'snyk config set snyk-api-abhijieet'
                      //bat 'snyk test abhi_patil/sportclub-backend:latest'
           //            // sh 'snyk test abhi_patil/sportclub-backend:latest',
                      snykSecurity snykInstallation: 'Snyk'
-          //             snykTokenId: 'snyk-api-abhijieet'
+                     snykTokenId: 'snyk-api-abhijieet'
           //             // targetFile: 'Dockerfile'
           //            // One or more steps need to be included within the steps block.
           //            // snykSecurity snykInstallation: 'Snyk',
