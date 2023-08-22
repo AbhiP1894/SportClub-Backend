@@ -75,7 +75,7 @@ pipeline {
                     // bat 'snyk config set snyk-api-abhijieet'
                      //bat 'snyk test abhi_patil/sportclub-backend:latest'
           //            // sh 'snyk test abhi_patil/sportclub-backend:latest',
-                     snykSecurity snykInstallation: 'Snyk'
+                     snykSecurity snykInstallation: 'Snyk',
                      snykTokenId: 'snyk-api-abhijieet'
           //             // targetFile: 'Dockerfile'
           //            // One or more steps need to be included within the steps block.
