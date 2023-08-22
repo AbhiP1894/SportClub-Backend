@@ -4,9 +4,9 @@ pipeline {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
     }
-    agent {
-        label 'linux'
-    }
+  //  agent {
+    //    label 'linux'
+    //}
     tools {
             maven 'Maven'
             jdk 'JDK11'
@@ -33,29 +33,30 @@ pipeline {
     //         }
     //     }
 
-        // stage('Sonar Analysis') {
-        //     steps {
-        //         sh 'mvn clean install'
-        //         sh 'mvn sonar:sonar -Dsonar.token=cbf4cb8304fee53bde54f1d6a2273f35b5afe9fd'
-        //     }
-        // }
+        stage('Sonar Analysis') {
+             steps {
+                 //sh 'mvn clean install'
+                 bat 'mvn sonar:sonar -Dsonar.token=cbf4cb8304fee53bde54f1d6a2273f35b5afe9fd'
+                 bat 'sonar -scanner'
+             }
+         }
 
         stage('package') {
             steps {
                 echo 'Pakage'
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
-        stage('Docker Build') {
+        //stage('Docker Build') {
             // when {
             //     branch 'release'
             // }
             // stage('Build') {
-                steps {
+          //      steps {
                     // sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
-                    sh 'docker build -t abhi_patil/sportclub-backend:latest .'
+            //        sh 'docker build -t abhi_patil/sportclub-backend:latest .'
                     // sh 'snyk test abhi_patil/sportclub-backend:latest'
-                }
+              //  }
             // steps {
             //     script {
             //        sh docker.build("abhi_docker/sportsclub:latest")
@@ -71,11 +72,10 @@ pipeline {
        
           stage('SnykScanning') {
                  steps {
-                     sh 'snyk config set snyk-api-abhijieet'
-                    
-                     sh 'snyk test abhi_patil/sportclub-backend:latest'
+                     bat 'snyk config set snyk-api-abhijieet'
+                     //bat 'snyk test abhi_patil/sportclub-backend:latest'
           //            // sh 'snyk test abhi_patil/sportclub-backend:latest',
-          //             snykSecurity snykInstallation: 'Snyk',
+                     snykSecurity snykInstallation: 'Snyk',
           //             snykTokenId: 'snyk-api-abhijieet'
           //             // targetFile: 'Dockerfile'
           //            // One or more steps need to be included within the steps block.
