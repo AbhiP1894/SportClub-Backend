@@ -5,7 +5,7 @@ pipeline {
         TAG = "${DATE}.${BUILD_NUMBER}"
     }
     agent {
-        label 'any'
+        label any
     }
     tools {
             maven 'Maven'
