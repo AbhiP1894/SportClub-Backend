@@ -67,7 +67,7 @@ pipeline {
         }
         stage('result') {
             steps {
-                sh 'trivy image -f json -o results.json abhi_patil/sportclub-backend:latest'
+                sh 'trivy image -f sarif -o results.sarif abhi_patil/sportclub-backend:latest'
             }
         }
        
