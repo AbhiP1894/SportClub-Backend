@@ -35,11 +35,11 @@ pipeline {
     //         }
     //     }
         stage('package') {
-                 steps {
-                    echo 'Pakage'
-                    bat 'mvn clean package'
-               }
+            steps {
+                echo 'Pakage'
+                bat 'mvn clean package'
             }
+        }
         stage('Sonar Analysis') {
             // steps {
               //   bat 'mvn clean install'
@@ -48,7 +48,7 @@ pipeline {
              //}
             withSonarQubeEnv(credentialsId: 'abhijeet-sonar-token', installationName: 'SonarQube') {
     // some block
-                 bat 'sonar-scanner'
+                bat 'sonar-scanner'
             }
          }
 
