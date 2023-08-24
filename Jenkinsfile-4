@@ -1,1 +1,88 @@
+/* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth, NglParseError */
+pipeline {
+    // environment {
+    //     DATE = new Date().format('yy.M')
+    //     TAG = "${DATE}.${BUILD_NUMBER}"
+    // }
+    agent {
+        label 'linux'
+    }
+    tools {
+            maven 'Maven'
+            jdk 'JDK11'
+    }
+
+    stages {
+        stage('validate') {
+            steps {
+                echo 'VALIDATE'
+                sh 'mvn clean validate'
+            }
+        }
+        stage('Compile') {
+            steps {
+                echo 'COMPILE'
+                sh 'mvn clean compile'
+            }
+        }
+
+        // stage('test') {
+        //     steps {
+        //         echo 'Test'
+        //         sh 'mvn clean test'
+        //     }
+        // }
+
+        // stage('Sonar Analysis') {
+        //     steps {
+        //         sh 'mvn clean install'
+        //         sh 'mvn sonar:sonar -Dsonar.token=cbf4cb8304fee53bde54f1d6a2273f35b5afe9fd'
+        //     }
+        // }
+
+        stage('package') {
+            steps {
+                echo 'Pakage'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Docker Build') {
+            // when {
+            //     branch 'release'
+            // }
+            // stage('Build') {
+                steps {
+                    sh 'docker build -t abhi_patil/sportclub-backend:latest .'
+                }
+            // steps {
+            //     script {
+            //        sh docker.build("abhi_docker/sportsclub:latest")
+            //     }
+            // }
+        }
+        stage('scan') {
+            steps {
+                script {
+                    def imageName = ' abhi_patil/sportclub-backend:latest'
+                    def trivyOutput = sh script: "trivy --exit-code 1 -f json ${abhi_patil/sportclub-backend:latest}", returnStatus: true
+
+                    if (trivyOutput == 0) {
+                        echo "No critical vulnerabilities found."
+                    } else if (trivyOutput == 1) {
+                        error "Critical vulnerabilities found. Failing the build."
+                    } else {
+                        error "Trivy scan failed with an unexpected exit code: ${trivyOutput}"
+                    }
+                }
+            }
+        }
+    }
+        stage('result') {
+            steps {
+                sh 'trivy image -f sarif -o results.sarif abhi_patil/sportclub-backend:latest'
+            }
+        }
+
+    }
+}
 
