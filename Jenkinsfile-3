@@ -60,8 +60,12 @@ pipeline {
             //     }
             // }
         }
- 
-        stage('scan') {
+       stage('scan') {
+            steps { 
+                sh 'trivy image --severity CRITICAL abhi_patil/sportclub-backend:latest'
+            }
+        }
+        stage('result') {
             steps {
                 // Scan all vuln levels
                 sh 'mkdir -p reports'
