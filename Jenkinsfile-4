@@ -63,7 +63,7 @@ pipeline {
         stage('scan') {
             steps {
                 script {
-                    def imageName = ' abhi_patil/sportclub-backend:latest'
+                    def imageName = 'abhi_patil/sportclub-backend:latest'
                     def trivyOutput = sh script: "trivy --exit-code 1 -f json ${abhi_patil/sportclub-backend:latest}", returnStatus: true
 
                     if (trivyOutput == 0) {
@@ -76,7 +76,6 @@ pipeline {
                 }
             }
         }
-    }
         stage('result') {
             steps {
                 sh 'trivy image -f sarif -o results.sarif abhi_patil/sportclub-backend:latest'
