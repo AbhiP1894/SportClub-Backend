@@ -80,29 +80,5 @@ pipeline {
                 sh 'trivy filesystem --ignore-unfixed --vuln-type os,library --exit-code 1 --severity CRITICAL abhi_patil/sportclub-backend:latest'
 
             }
-
-
-        // stage('Pushing Docker Image to Jfrog Artifactory') {
-        //     when {
-        //         branch 'release'
-        //     }
-        //     steps {
-        //         script {
-        //             docker.withRegistry('http://172.27.59.80:8082/', 'artifactory-docker') {
-        //                 docker.image("abhi_docker/sportsclub:${TAG}").push()
-        //                 docker.image("abhi_docker/sportsclub:${TAG}").push('latest')
-        //             }
-        //         }
-        //     }
-        // }
-        // stage('Deploy'){
-        //     when {
-        //         branch 'release'
-        //     }
-        //     steps {
-        //         sh 'docker-compose up'
-        //     }
-        // }
     }
 }
-
