@@ -4,9 +4,9 @@ pipeline {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
     }
-    //agent {
-      //  label 'linux'
-    //}
+    agent {
+        label 'linux'
+    }
     agent any
     
     tools {
@@ -59,12 +59,12 @@ pipeline {
             // when {
             //     branch 'release'
             // }
-            // stage('Build') {
-          //      steps {
+             stage('Build') {
+                steps {
                     // sh 'snyk config set 8e6e965d-98b5-4a16-af75-89d35e9618ac'
-            //        sh 'docker build -t abhi_patil/sportclub-backend:latest .'
-                    // sh 'snyk test abhi_patil/sportclub-backend:latest'
-              //  }
+                    sh 'docker build -t abhi_patil/sportclub-backend:latest .'
+                    sh 'snyk test abhi_patil/sportclub-backend:latest'
+                }
             // steps {
             //     script {
             //        sh docker.build("abhi_docker/sportsclub:latest")
