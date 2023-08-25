@@ -99,7 +99,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: authCredentials, usernameVariable: 'USERNAME',  passwordVariable: 'PASSWORD')]) {
                         sh """
                             curl http://172.27.59.80:8082/ \${USERNAME}:\${PASSWORD} \\
-                                 http://172.27.59.59/ \${htmlFilePath} \\
+                                 curl http://172.27.59.59/ \${htmlFilePath} \\
                                  \${artifactoryUrl}/\${targetPath}
                         """
                     }
