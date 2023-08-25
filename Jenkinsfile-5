@@ -50,7 +50,7 @@ pipeline {
             // when {
             //     branch 'release'
             // }
-            // stage('Build') {
+            stage('Build') {
                 steps {
                     sh 'docker build -t abhi_patil/sportclub-backend:latest .'
                 }
@@ -59,7 +59,8 @@ pipeline {
             //        sh docker.build("abhi_docker/sportsclub:latest")
             //     }
             // }
-        }
+}
+}
         stage('scan') {
             steps { 
                 sh 'trivy image --severity HIGH,CRITICAL abhi_patil/sportclub-backend:latest'
@@ -114,6 +115,8 @@ pipeline {
             }
         }
     }
-    }
 }
+
+
+
 
