@@ -92,13 +92,13 @@ pipeline {
                 script {
                     def htmlFilePath = 'home/abhishekj/abhishek-node/workspace/trivy-demo/results.html'
                     def targetPath = 'http://172.27.59.80:8082/artifactory/trivy/results.html'
-                    def artifactoryUrl = 'http://172.27.59.80:8082'
+                    def artifactoryUrl = 'http://172.27.59.80:8082/'
                     def authCredentials = 'artifactory-docker'
 
                     // Upload the HTML file to Artifactory using HTTP
                     withCredentials([usernamePassword(credentialsId: authCredentials, usernameVariable: 'USERNAME',  passwordVariable: 'PASSWORD')]) {
                         sh """
-                            curl http://172.27.59.80:8082 \${USERNAME}:\${PASSWORD} \\
+                            curl http://172.27.59.80:8082/ \${USERNAME}:\${PASSWORD} \\
                                  -T \${htmlFilePath} \\
                                  \${artifactoryUrl}/\${targetPath}
                         """
