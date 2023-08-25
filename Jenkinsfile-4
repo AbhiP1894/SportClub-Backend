@@ -65,7 +65,7 @@ pipeline {
                 script {
               def imageName = 'abhi_patil/sportclub-backend:latest'
                     def trivyOutput = sh script: "trivy image --severity CRITICAL ${imageName}"
-                    echo $trivyOutput
+                    echo ${trivyOutput}
 
                     if (trivyOutput == 0) {
                         echo "No critical vulnerabilities found."
