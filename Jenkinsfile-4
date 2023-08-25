@@ -64,14 +64,14 @@ pipeline {
             steps {
                 script {
               def imageName = 'abhi_patil/sportclub-backend:latest'
-                    def trivyOutput = sh script: "trivy image --severity CRITICAL ${imageName}"
-                    echo ${trivyOutput}
-
-                    if (trivyOutput == 0) {
+                    def trivyOutput = sh script: "trivy --exit-code 1 -f json ${imageName}", returnStatus: true
+             if (trivyOutput == 0) {
                         echo "No critical vulnerabilities found."
-                    } else {
+                    } else if (trivyOutput == 1) {
                         error "Critical vulnerabilities found. Failing the build."
-                    } 
+                    } else {
+                        error "Trivy scan failed with an unexpected exit code: ${trivyOutput}"
+                    }
                 }
             }
         }
