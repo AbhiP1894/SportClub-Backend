@@ -96,9 +96,9 @@ pipeline {
                     def authCredentials = 'artifactory-docker'
 
                     // Upload the HTML file to Artifactory using HTTP
-                    withCredentials([usernamePassword(credentialsId: authCredentials, usernameVariable: 'admin', passwordVariable: 'Cybage@123')]) {
+                    withCredentials([usernamePassword(credentialsId: authCredentials, admin: 'USERNAME', Cybage@123: 'password')]) {
                         sh """
-                            curl -u \${admin}:\${Cybage@123} \\
+                            curl -u \${USERNAME}:\${password} \\
                                  -T \${htmlFilePath} \\
                                  \${artifactoryUrl}/\${targetPath}
                         """
