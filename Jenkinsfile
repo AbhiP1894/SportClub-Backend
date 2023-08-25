@@ -37,7 +37,7 @@ pipeline {
         stage('package') {
             steps {
                 echo 'Pakage'
-                bat 'mvn clean package'
+                sh 'mvn clean package'
             }
         }
         stage('Sonar Analysis') {
@@ -48,7 +48,7 @@ pipeline {
              //}
             withSonarQubeEnv(credentialsId: 'abhijeet-sonar-token', installationName: 'SonarQube') {
     // some block
-                bat 'sonar-scanner'
+               sh 'sonar-scanner'
             }
         }
     }
