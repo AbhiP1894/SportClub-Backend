@@ -46,21 +46,13 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('Docker Build') {
-            // when {
-            //     branch 'release'
-            // }
             stage('Build') {
                 steps {
                     sh 'docker build -t abhi_patil/sportclub-backend:latest .'
                 }
-            // steps {
-            //     script {
-            //        sh docker.build("abhi_docker/sportsclub:latest")
-            //     }
-            // }
+
 }
-}
+
         stage('scan') {
             steps { 
                 sh 'trivy image --severity HIGH,CRITICAL abhi_patil/sportclub-backend:latest'
