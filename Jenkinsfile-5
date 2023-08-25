@@ -98,7 +98,7 @@ pipeline {
                     // Upload the HTML file to Artifactory using HTTP
                     withCredentials([usernamePassword(credentialsId: authCredentials, usernameVariable: 'USERNAME',  passwordVariable: 'PASSWORD')]) {
                         sh """
-                            curl -u \${USERNAME}:\${PASSWORD} \\
+                            curl -http://172.27.59.80:808 \${USERNAME}:\${PASSWORD} \\
                                  -T \${htmlFilePath} \\
                                  \${artifactoryUrl}/\${targetPath}
                         """
