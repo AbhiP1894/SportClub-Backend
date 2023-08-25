@@ -7,8 +7,7 @@ pipeline {
     agent {
         label 'linux'
     }
-    agent any
-    
+
     tools {
             maven 'Maven'
             jdk 'JDK11'
