@@ -63,18 +63,15 @@ pipeline {
         stage('scan') {
             steps {
                 script {
-               def imageName = 'abhi_patil/sportclub-backend:latest'
-                    def trivyOutput = sh(script: "trivy --exit-code 1 -f json ${imageName}", returnStatus: true)
+              def imageName = 'abhi_patil/sportclub-backend:latest'
+                    def trivyOutput = sh script: "trivy --exit code 1 -f jso ${imageName}", returnStatus: true
 
-                    // Extract the actual exit code from the process info
-                    def exitCode = trivyOutput.exitStatus
-
-                    if (exitCode == 0) {
+                    if (trivyOutput == 0) {
                         echo "No critical vulnerabilities found."
-                    } else if (exitCode == 1) {
+                    } else if (trivyOutput == 1) {
                         error "Critical vulnerabilities found. Failing the build."
                     } else {
-                        error "Trivy scan failed with an unexpected exit code: ${exitCode}"
+                        error "Trivy scan failed with an unexpected exit code: ${trivyOutput}"
                     }
                 }
             }
