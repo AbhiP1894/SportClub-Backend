@@ -69,7 +69,7 @@ pipeline {
             //     script {
             //        sh docker.build("abhi_docker/sportsclub:latest")
             //     }
-             }
+             //}
         // stage('Scan Docker Image with Snyk') {
         //     steps {
         //         script {
