@@ -69,7 +69,15 @@ pipeline {
             //     script {
             //        sh docker.build("abhi_docker/sportsclub:latest")
             //     }
-            // }
+             }
+        stage('Scan Docker Image with Snyk') {
+            steps {
+                script {
+                    // Run Snyk Docker image scan
+                    sh 'snyk container test abhi_patil/sportclub-backend:latest'
+                }
+            }
+        }
         
       //  stage('snyk Authentication') {
         //    steps { 
