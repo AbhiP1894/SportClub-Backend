@@ -69,7 +69,7 @@ pipeline {
             steps {
                 // Scan all vuln levels
                 sh 'mkdir -p reports'
-                sh 'trivy --format template "@html.tpl" -o reports/report.html ./abhishek-node '
+                sh 'trivy --format template "@html.tpl" reports/report.html ./abhishek-node '
                 publishHTML target : [
                     allowMissing: true,
                     alwaysLinkToLastBuild: true,
