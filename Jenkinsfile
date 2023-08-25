@@ -65,6 +65,7 @@ pipeline {
                     sh 'docker build -t abhi_patil/sportclub-backend:latest .'
                     // sh 'snyk test abhi_patil/sportclub-backend:latest'
                 }
+             }
             // steps {
             //     script {
             //        sh docker.build("abhi_docker/sportsclub:latest")
