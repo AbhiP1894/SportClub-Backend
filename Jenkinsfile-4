@@ -64,7 +64,7 @@ pipeline {
             steps {
                 script {
                     def imageName = 'abhi_patil/sportclub-backend:latest'
-                    def trivyOutput = sh script: "trivy --exit-code 1 -f json ${abhi_patil/sportclub-backend:latest}", returnStatus: true
+                    def trivyOutput = sh script: "trivy --exit-code 1 -f json ${imageName}", returnStatus: true
 
                     if (trivyOutput == 0) {
                         echo "No critical vulnerabilities found."
