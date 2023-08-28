@@ -3,7 +3,7 @@ pipeline {
     environment {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
-        SNYK_TOKEN = credentials('snyk-api-abhijieet')
+        // SNYK_TOKEN = credentials('snyk-api-abhijieet')
     }
     agent {
         label 'linux'
@@ -41,16 +41,26 @@ pipeline {
              }
         
           stage('SnykScanning') {
-                 steps {
-                      snykSecurity snykInstallation: 'Snyk',
-                      snykTokenId: '${SNYK_TOKEN}'
-                      sh 'snyk test abhi_patil/sportclub-backend:latest'
-                     // targetFile: 'Dockerfile'
-                     // One or more steps need to be included within the steps block.
-                     // snykSecurity snykInstallation: 'Snyk',
-                     // snykTokenId: 'snyk-api-abhijieet'
-                     // sh 'snyk test abhi_patil/sportclub-backend:latest'
-                 }
+               steps {
+                script {
+                    // Authenticate with Snyk using API token
+                    withCredentials([string(credentialsId: 'snyk-api-abhijieet', variable: 'SNYK_TOKEN')]) {
+                        sh 'snyk auth $SNYK_TOKEN'
+                    }
+
+                    // Run Snyk Docker image scan
+                    sh 'snyk container test abhi_patil/sportclub-backend:latest'
+                }
+                 // steps {
+                 //      snykSecurity snykInstallation: 'Snyk',
+                 //      snykTokenId: '${SNYK_TOKEN}'
+                 //      sh 'snyk test abhi_patil/sportclub-backend:latest'
+                 //     // targetFile: 'Dockerfile'
+                 //     // One or more steps need to be included within the steps block.
+                 //     // snykSecurity snykInstallation: 'Snyk',
+                 //     // snykTokenId: 'snyk-api-abhijieet'
+                 //     // sh 'snyk test abhi_patil/sportclub-backend:latest'
+                 // }
              } 
     }
 }
