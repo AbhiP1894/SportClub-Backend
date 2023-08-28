@@ -62,5 +62,6 @@ pipeline {
                  //     // sh 'snyk test abhi_patil/sportclub-backend:latest'
                  // }
              } 
+          }
     }
 }
