@@ -45,7 +45,7 @@ pipeline {
                 script {
                     // Authenticate with Snyk using API token
                     withCredentials([string(credentialsId: 'snyk-api-abhijieet', variable: 'SNYK_TOKEN')]) {
-                        sh 'snyk auth $SNYK_TOKEN'
+                        sh 'snyk congif set $SNYK_TOKEN'
                     }
 
                     // Run Snyk Docker image scan
