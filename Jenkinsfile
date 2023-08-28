@@ -42,6 +42,8 @@ pipeline {
         
           stage('SnykScanning') {
                steps {
+                    snykSecurity snykInstallation: 'Snyk',
+                    snykTokenId: 'snyk-api-abhijieet'
                 script {
                     // Authenticate with Snyk using API token
                     withCredentials([string(credentialsId: 'snyk-api-abhijieet', variable: 'SNYK_TOKEN')]) {
