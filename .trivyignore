@@ -1,4 +1,5 @@
 CVE-2020-36518
 CVE-2021-46877
-pkg:org.hibernate:hibernate-core (deccan-sport-club-1.1.jar) 
+pkg:org.springframework.security:spring-security-web*
+
              
