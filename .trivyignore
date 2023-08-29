@@ -1,4 +1,4 @@
 CVE-2020-36518
 CVE-2021-46877
-pkg:org.springframework
+pkg:org.springframework.boot:spring-boot-starter-web
 
