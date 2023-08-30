@@ -37,14 +37,18 @@ pipeline {
                 }
              }
         
-          stage('SnykScanning') {
-               steps {
-                    snykSecurity failOnIssues: false,
-                        severity: 'critical',
-                        snykInstallation: 'Snyk',
-                        snykTokenId: 'snyk-api-abhijieet'
-                   sh 'snyk config set snyk-api-abhijieet'
-                   sh 'snyk container test abhi_patil/sportclub-backend:latest'
+        stage('Snyk Scan') {
+            steps {
+                sh 'snyk test --all-projects --docker abhi_patil/sportclub-backend:latest'
+            }
+        }
+        
+          // stage('SnykScanning') {
+          //      steps {
+          //           snykSecurity failOnIssues: false,
+          //               severity: 'critical',
+          //               snykInstallation: 'Snyk',
+          //               snykTokenId: 'snyk-api-abhijieet'
                         // snykInstallation: 'Snyk',
                         // snykTokenId: 'snyk-api-abhijieet'
                 // script {
@@ -55,7 +59,7 @@ pipeline {
                 //     // Run Snyk Docker image scan
                 //     sh 'snyk container test abhi_patil/sportclub-backend:latest'
                 // }
-             }
-          }
+          //    }
+          // }
     }
 }
