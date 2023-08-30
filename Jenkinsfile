@@ -41,16 +41,18 @@ pipeline {
                steps {
                     snykSecurity failOnIssues: false,
                         severity: 'critical',
-                        snykInstallation: 'Snyk',
-                        snykTokenId: 'snyk-api-abhijieet'
-                script {
-                    // Authenticate with Snyk using API token
-                    // withCredentials([string(credentialsId: 'snyk-api-abhijieet', variable: 'SNYK_TOKEN')]) {
-                        sh 'snyk config set snyk-api-abhijieet'
-                    // }
-                    // Run Snyk Docker image scan
-                    sh 'snyk container test abhi_patil/sportclub-backend:latest'
-                }
+                   sh 'snyk config set snyk-api-abhijieet'
+                   sh 'snyk container test abhi_patil/sportclub-backend:latest'
+                        // snykInstallation: 'Snyk',
+                        // snykTokenId: 'snyk-api-abhijieet'
+                // script {
+                //     // Authenticate with Snyk using API token
+                //     // withCredentials([string(credentialsId: 'snyk-api-abhijieet', variable: 'SNYK_TOKEN')]) {
+                //         sh 'snyk config set snyk-api-abhijieet'
+                //     // }
+                //     // Run Snyk Docker image scan
+                //     sh 'snyk container test abhi_patil/sportclub-backend:latest'
+                // }
              }
           }
     }
