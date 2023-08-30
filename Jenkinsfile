@@ -23,9 +23,11 @@ pipeline {
         }
         
         stage('Sonar Analysis') {
-            withSonarQubeEnv(credentialsId: 'abhijeet-sonar-token', installationName: 'SonarQube') {
-    // some block
-               sh 'sonar-scanner'
+            steps{
+                withSonarQubeEnv(credentialsId: 'abhijeet-sonar-token', installationName: 'SonarQube') {
+                // some block
+                sh 'sonar-scanner'
+                }
             }
         }
             
