@@ -22,14 +22,14 @@ pipeline {
             }
         }
         
-        stage('Sonar Analysis') {
-            steps{
-                withSonarQubeEnv(credentialsId: 'abhijeet-sonar-token', installationName: 'SonarQube') {
-                // some block
-                sh 'sonar-scanner'
-                }
-            }
-        }
+        // stage('Sonar Analysis') {
+        //     steps{
+        //         withSonarQubeEnv(credentialsId: 'abhijeet-sonar-token', installationName: 'SonarQube') {
+        //         // some block
+        //         sh 'sonar-scanner'
+        //         }
+        //     }
+        // }
             
         stage('Docker Build') {
                 steps {
