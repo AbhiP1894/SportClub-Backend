@@ -45,9 +45,9 @@ pipeline {
                         snykTokenId: 'snyk-api-abhijieet'
                 script {
                     // Authenticate with Snyk using API token
-                    // withCredentials([string(credentialsId: 'snyk-api-abhijieet', variable: 'SNYK_TOKEN')]) {
-                    //     sh 'snyk congif set $SNYK_TOKEN'
-                    // }
+                    withCredentials([string(credentialsId: 'snyk-api-abhijieet', variable: 'SNYK_TOKEN')]) {
+                        sh 'snyk config set $SNYK_TOKEN'
+                    }
                     // Run Snyk Docker image scan
                     sh 'snyk container test abhi_patil/sportclub-backend:latest'
                 }
