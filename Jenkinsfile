@@ -39,7 +39,7 @@ pipeline {
         
         stage('Snyk Scan') {
             steps {
-                sh 'snyk test --all-projects --docker abhi_patil/sportclub-backend:latest'
+                sh 'snyk test abhi_patil/sportclub-backend:latest'
             }
         }
         
