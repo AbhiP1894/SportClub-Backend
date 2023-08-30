@@ -28,7 +28,6 @@ pipeline {
                sh 'sonar-scanner'
             }
         }
-    }
             
         stage('Docker Build') {
                 steps {
@@ -52,6 +51,5 @@ pipeline {
                 }
              }
           }
-       }
     }
 }
