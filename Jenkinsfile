@@ -41,6 +41,8 @@ pipeline {
                steps {
                     snykSecurity failOnIssues: false,
                         severity: 'critical',
+                        snykInstallation: 'Snyk',
+                        snykTokenId: 'snyk-api-abhijieet'
                    sh 'snyk config set snyk-api-abhijieet'
                    sh 'snyk container test abhi_patil/sportclub-backend:latest'
                         // snykInstallation: 'Snyk',
