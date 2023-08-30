@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('package') {
             steps {
-                mvn -N io.takari:maven:wrapper -Dmaven=3.6.3
+                sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
                 echo 'Pakage'
                 sh 'mvnw clean package'
             }
