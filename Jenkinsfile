@@ -22,7 +22,7 @@ pipeline {
                 // sh 'chmod +x mvnw'
                 sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
                 echo 'Pakage'
-                sh 'mvnw clean package'
+                sh 'mvn clean package'
             }
         }
         
