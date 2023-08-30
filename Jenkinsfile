@@ -17,6 +17,8 @@ pipeline {
     stages {
         stage('package') {
             steps {
+                sh 'curl -o mvnw https://raw.githubusercontent.com/takari/maven-wrapper/master/mvnw'
+                sh 'chmod +x mvnw'
                 sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
                 echo 'Pakage'
                 sh 'mvnw clean package'
