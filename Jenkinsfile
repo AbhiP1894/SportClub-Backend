@@ -20,7 +20,7 @@ pipeline {
                 // sh 'cd /home/abhishekj/abhishek-node/workspace/abhijeethpatil/snyk-image-piplinejob-demo@tmp/durable-0e3d7821/'
                 // sh 'curl -o mvnw https://raw.githubusercontent.com/takari/maven-wrapper/master/mvnw'
                 // sh 'chmod +x mvnw'
-                sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
+                // sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
                 echo 'Pakage'
                 sh 'mvn clean package'
             }
