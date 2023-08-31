@@ -50,7 +50,7 @@ pipeline {
                         severity: 'critical',
                         snykInstallation: 'Snyk',
                         snykTokenId: 'snyk-api-abhijieet'
-                   sh'snyk auth ${snykTokenId}'
+                   sh'snyk auth snykTokenId'
                    sh 'snyk test abhi_patil/sportclub-backend:latest'
                         // snykInstallation: 'Snyk',
                         // snykTokenId: 'snyk-api-abhijieet'
