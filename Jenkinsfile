@@ -1,13 +1,11 @@
 /* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth, NglParseError */
 pipeline {
-    // environment {
-    //     DATE = new Date().format('yy.M')
-    //     TAG = "${DATE}.${BUILD_NUMBER}"
-    //     snyk-api-token = "8e6e965d-98b5-4a16-af75-89d35e9618ac"
-    // }
     environment {
-        snyk-api-token = "8e6e965d-98b5-4a16-af75-89d35e9618ac"
+        DATE = new Date().format('yy.M')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+       
     }
+   
     agent {
         label 'linux'
     }
@@ -54,7 +52,7 @@ pipeline {
                         severity: 'critical',
                         snykInstallation: 'Snyk',
                         snykTokenId: 'snyk-api-abhijieet'
-                   sh 'snyk auth ${snyk-api-token}'
+                   sh 'snyk auth 8e6e965d-98b5-4a16-af75-89d35e9618ac'
                    sh 'snyk test abhi_patil/sportclub-backend:latest'
                         // snykInstallation: 'Snyk',
                         // snykTokenId: 'snyk-api-abhijieet'
