@@ -39,7 +39,7 @@ pipeline {
         
         stage('Snyk Scan') {
             steps {
-                sh'snyk auth 8e6e965d-98b5-4a16-af75-89d35e9618ac'
+                sh'snyk auth snyk-api-abhijieet'
                 sh 'snyk test abhi_patil/sportclub-backend:latest'
             }
         }
@@ -47,7 +47,7 @@ pipeline {
           // stage('SnykScanning') {
           //      steps {
           //           snykSecurity failOnIssues: false,
-          //               severity: 'critical',
+          //               severity: 'critical',8e6e965d-98b5-4a16-af75-89d35e9618ac
           //               snykInstallation: 'Snyk',
           //               snykTokenId: 'snyk-api-abhijieet'
                         // snykInstallation: 'Snyk',
