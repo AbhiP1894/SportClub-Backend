@@ -3,6 +3,7 @@ pipeline {
     environment {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
+        snyk-api-token = "8e6e965d-98b5-4a16-af75-89d35e9618ac"
     }
     agent {
         label 'linux'
@@ -50,7 +51,7 @@ pipeline {
                         severity: 'critical',
                         snykInstallation: 'Snyk',
                         snykTokenId: 'snyk-api-abhijieet'
-                   sh 'snyk auth snyk-api-abhijieet'
+                   sh 'snyk auth ${snyk-api-token}'
                    sh 'snyk test abhi_patil/sportclub-backend:latest'
                         // snykInstallation: 'Snyk',
                         // snykTokenId: 'snyk-api-abhijieet'
