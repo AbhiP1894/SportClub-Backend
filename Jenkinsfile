@@ -62,7 +62,7 @@ pipeline {
                 //     // Run Snyk Docker image scan
                 //     sh 'snyk container test abhi_patil/sportclub-backend:latest'
                 // }
-          //    }
-          // }
+             }
+          }
     }
 }
