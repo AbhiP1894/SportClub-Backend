@@ -3,7 +3,7 @@ pipeline {
     environment {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
-        SNYK-TOKEN = 'e6c8fb1c-4604-4c67-a26b-5b48a5effa3a'
+        SNYK_TOKEN = 'e6c8fb1c-4604-4c67-a26b-5b48a5effa3a'
     }
    
     agent {
@@ -38,7 +38,7 @@ pipeline {
        }
        stage('SnykScanning') {
            steps {
-               sh 'snyk auth ${SNYK-TOKEN}' 
+               sh 'snyk auth ${SNYK_TOKEN}' 
                sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
            }
        }
