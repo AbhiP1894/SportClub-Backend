@@ -17,7 +17,7 @@ pipeline {
                     sh 'docker build -t abhi_patil/sportclub-backend:latest .'
                 }
         }
-        // stage('scan') {
+     stage('scan') {
           steps { 
         //         sh 'trivy image abhi_patil/sportclub-backend:latest'
             sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl'
@@ -26,4 +26,5 @@ pipeline {
              }
         }
        
+}
 }
