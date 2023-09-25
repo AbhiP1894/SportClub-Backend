@@ -44,7 +44,7 @@ pipeline {
                steps {
                     snykSecurity failOnIssues: false,
                         severity: 'critical',
-                        snykInstallation: 'Snyk',
+                        snykInstallation: 'Snyk'
                        // snykTokenId: 'snyk-api-abhijieet'
                    sh 'snyk auth ${Snyk_Token}' 
                    //8e6e965d-98b5-4a16-af75-89d35e9618ac'
