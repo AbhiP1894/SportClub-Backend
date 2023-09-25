@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'linux'
-    }
+    agent any
     tools {
             maven 'Maven'
             jdk 'JDK11'
@@ -27,8 +25,5 @@ pipeline {
 			sh 'trivy image --ignore-unfixed --vuln-type os,library --format template --template "@./html.tpl" -o reports/trivy-scan.html abhi_patil/sportclub-backend:latest'
              }
         }
-
-        }
        
-    }
 }
