@@ -2,8 +2,8 @@
 pipeline {
     environment {
         DATE = new Date().format('yy.M')
-        TAG = "${DATE}.${BUILD_NUMBER}"   
-        SNYK_API_TOKEN = credentials('snyk-token')
+        TAG = "${DATE}.${BUILD_NUMBER}"
+        SNYK-TOKEN = 'e6c8fb1c-4604-4c67-a26b-5b48a5effa3a'
     }
    
     agent {
@@ -16,14 +16,13 @@ pipeline {
     }
 
    stages {
-    //    stage('package') {
-      //      steps {
-        //        sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
-          //      echo 'Pakage'
-            //    sh 'mvn clean package'
-            //}
-        //}
-        
+        stage('package') {
+            steps {
+                sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
+                echo 'Pakage'
+                sh 'mvn clean package'
+            }
+        }
         // stage('Sonar Analysis') {
         //     steps{
         //         withSonarQubeEnv(credentialsId: 'abhijeet-sonar-token', installationName: 'SonarQube') {
@@ -31,28 +30,18 @@ pipeline {
         //         sh 'sonar-scanner'
         //         }
         //     }
-        // }
-            
- //stage('Docker Build') {
- //               steps {
-   //                 sh 'docker build -t sportclub-backend:latest .'
-     //           }
-       //      }
-         
-          stage('SnykScanning') {
-               steps {
-                       withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK-TOKEN')]) {
-                           //snykSecurity failOnIssues: false,
-                            //severity: 'critical',
-                            //snykInstallation: 'Snyk'
-                           //snykTokenId: 'snyk-token'
-                               sh 'snyk auth ${SNYK-TOKEN}' 
-                                   //8e6e965d-98b5-4a16-af75-89d35e9618ac'
-                               sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
-                            // snykInstallation: 'Snyk',withCredentials([string(credentialsId: 'snyk-token', variable: 'snyk-token')]) {
-    // some block}
-                       }
-               }
-          }
-    }
+        // }  
+       stage('Docker Build') {
+           steps {
+               sh 'docker build -t sportclub-backend:latest .'
+           }
+       }
+       stage('SnykScanning') {
+           steps {
+               sh 'snyk auth ${SNYK-TOKEN}' 
+               sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
+           }
+       }
+   }
 }
+
