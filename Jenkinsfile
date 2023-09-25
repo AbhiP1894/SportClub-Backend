@@ -2,9 +2,7 @@
 pipeline {
     environment {
         DATE = new Date().format('yy.M')
-        TAG = "${DATE}.${BUILD_NUMBER}"
-       
-       
+        TAG = "${DATE}.${BUILD_NUMBER}"   
     }
    
     agent {
@@ -16,14 +14,14 @@ pipeline {
         jdk 'JDK11'
     }
 
-    stages {
-        stage('package') {
-            steps {
-                sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
-                echo 'Pakage'
-                sh 'mvn clean package'
-            }
-        }
+   stages {
+    //    stage('package') {
+      //      steps {
+        //        sh 'mvn -N io.takari:maven:wrapper -Dmaven=3.6.3'
+          //      echo 'Pakage'
+            //    sh 'mvn clean package'
+            //}
+        //}
         
         // stage('Sonar Analysis') {
         //     steps{
@@ -34,11 +32,11 @@ pipeline {
         //     }
         // }
             
-        stage('Docker Build') {
-                steps {
-                    sh 'docker build -t sportclub-backend:latest .'
-                }
-             }
+ //stage('Docker Build') {
+ //               steps {
+   //                 sh 'docker build -t sportclub-backend:latest .'
+     //           }
+       //      }
          
           stage('SnykScanning') {
                steps {
