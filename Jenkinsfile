@@ -47,6 +47,7 @@ pipeline {
                 script {
                     // Stash the custom CSS file
                     stash includes: 'custom.css', name: 'custom-css'
+                     echo "Current workspace: ${env.WORKSPACE}"
                 }
             }
         }
