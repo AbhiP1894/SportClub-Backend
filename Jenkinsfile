@@ -42,9 +42,9 @@ pipeline {
           stage('SnykScanning') {
                steps {
                        withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK-TOKEN')]) {
-                           snykSecurity failOnIssues: false,
-                            severity: 'critical',
-                            snykInstallation: 'Snyk'
+                           //snykSecurity failOnIssues: false,
+                            //severity: 'critical',
+                            //snykInstallation: 'Snyk'
                            //snykTokenId: 'snyk-token'
                                sh 'snyk auth ${SNYK-TOKEN}' 
                                    //8e6e965d-98b5-4a16-af75-89d35e9618ac'
