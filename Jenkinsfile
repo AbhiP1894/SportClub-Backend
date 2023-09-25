@@ -35,7 +35,7 @@ pipeline {
             
         stage('Docker Build') {
                 steps {
-                    sh 'docker build -t abhi_patil/sportclub-backend:latest .'
+                    sh 'docker build -t sportclub-backend:latest .'
                 }
              }
         
@@ -53,7 +53,7 @@ pipeline {
                         snykInstallation: 'Snyk',
                         snykTokenId: 'snyk-api-abhijieet'
                    sh 'snyk auth 8e6e965d-98b5-4a16-af75-89d35e9618ac'
-                   sh 'snyk test abhi_patil/sportclub-backend:latest'
+                   sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
                         // snykInstallation: 'Snyk',
                         // snykTokenId: 'snyk-api-abhijieet'
                 // script {
