@@ -45,8 +45,8 @@ pipeline {
                             snykSecurity failOnIssues: false,
                             severity: 'critical',
                             snykInstallation: 'Snyk'
-                           // snykTokenId: 'snyk-api-abhijieet'
-                               sh 'snyk auth ${SNYK_API_TOKEN}' 
+                           snykTokenId: 'snyk-api-abhijieet'
+                               sh 'snyk auth ${snykTokenId}' 
                                    //8e6e965d-98b5-4a16-af75-89d35e9618ac'
                                sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
                             // snykInstallation: 'Snyk',withCredentials([string(credentialsId: 'snyk-token', variable: 'snyk-token')]) {
