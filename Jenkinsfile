@@ -58,7 +58,7 @@ pipeline {
                     def customCssDir = stash(name: 'custom-css-file')
 
                     // Copy the custom CSS file to the report directory
-                    sh "cp ${customCssDir}/custom.css ${reportDir}/custom.css"
+                    sh "cp ${env.WORKSPACE}/custom.css ${reportDir}/custom.css"
                 }
             }
         }
