@@ -42,7 +42,6 @@ pipeline {
          
           stage('SnykScanning') {
                steps {
-                   scripts {
                        withCredentials([string(credentialsId: 'snyk-token', variable: 'SNYK-TOKEN')]) {
                         snykSecurity failOnIssues: false,
                         severity: 'critical',
@@ -53,7 +52,6 @@ pipeline {
                            sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
                         // snykInstallation: 'Snyk',
                        }
-                   }
                }
           }
     }
