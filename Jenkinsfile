@@ -46,7 +46,7 @@ pipeline {
             steps {
                 script {
                     // Stash the custom CSS file
-                    stash includes: 'custom.css', name: 'custom-css'
+                    stash includes: 'custom.css', name: 'custom-css-file'
                      echo "Current workspace: ${env.WORKSPACE}"
                 }
             }
@@ -55,7 +55,7 @@ pipeline {
             steps {
                 script {
                     def reportDir = pwd() // Get the current workspace directory
-                    def customCssDir = stash(name: 'custom-css', allowsEmpty: true)
+                    def customCssDir = stash(name: 'custom-css-file')
 
                     // Copy the custom CSS file to the report directory
                     sh "cp ${customCssDir}/custom.css ${reportDir}/custom.css"
