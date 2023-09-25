@@ -42,6 +42,44 @@ pipeline {
                sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
            }
        }
+       stage('Apply Custom CSS') {
+            steps {
+                script {
+                    // Stash the custom CSS file
+                    stash includes: 'custom.css', name: 'custom-css'
+                }
+            }
+        }
+       stage('Copy CSS to Report Directory') {
+            steps {
+                script {
+                    def reportDir = pwd() // Get the current workspace directory
+                    def customCssDir = stash(name: 'custom-css', allowsEmpty: true)
+
+                    // Copy the custom CSS file to the report directory
+                    sh "cp ${customCssDir}/custom.css ${reportDir}/custom.css"
+                }
+            }
+        }
+        
+        stage('Update HTML Report') {
+            steps {
+                script {
+                    // Assuming your_report.html references custom.css like this:
+                    // <link rel="stylesheet" type="text/css" href="custom.css">
+                    
+                    // Read the report file
+                    def reportPath = pwd() + '/results-sportclub.html'
+                    def reportContent = readFile(reportPath)
+                    
+                    // Add a link to the custom CSS file
+                    reportContent = reportContent.replace('</head>', '<link rel="stylesheet" type="text/css" href="custom.css"></head>')
+                    
+                    // Write the updated content back to the report file
+                    writeFile(file: reportPath, text: reportContent)
+                }
+            }
+        }
    }
 }
 
