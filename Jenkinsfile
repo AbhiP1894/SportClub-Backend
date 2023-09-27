@@ -1,4 +1,3 @@
-/* groovylint-disable CompileStatic, DuplicateStringLiteral, LineLength, NestedBlockDepth, NglParseError */
 pipeline {
     // environment {
     //     DATE = new Date().format('yy.M')
