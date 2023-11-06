@@ -34,7 +34,7 @@ pipeline {
        stage('Docker Build') {
            steps {
                sh 'whoami'
-               sh 'docker build -t sportclub-backend:latest .'
+               sh 'sudo docker build -t sportclub-backend:latest .'
            }
        }
        stage('SnykScanning') {
