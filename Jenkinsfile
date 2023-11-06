@@ -33,8 +33,7 @@ pipeline {
         // }  
        stage('Docker Build') {
            steps {
-               sh 'whoami'
-               sh 'sudo docker build -t sportclub-backend:latest .'
+               sh 'docker build -t sportclub-backend:latest .'
            }
        }
        stage('SnykScanning') {
