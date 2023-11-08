@@ -41,8 +41,13 @@ pipeline {
            steps {
                sh 'snyk auth ${SNYK_TOKEN}' 
                script {
-                  def snykScanResult = sh(script: 'snyk container test sportclub-backend:latest --json')
-                  writeFile file: 'snyk-report.json', text: snykScanResult
+                  def snykScanResult = sh(script: 'snyk container test sportclub-backend:latest --json', returnStatus: true, returnStdout: true)
+                     if (snykScanResult == 0) {
+                        // Snyk scan was successful, save the JSON report
+                        writeFile file: 'snyk-report.json', text: snykScanResult
+                    } else {
+                        error('Snyk scan failed. Check for issues and try again.')
+                    }
               }
               // sh 'snyk container test sportclub-backend:latest --json > results-sportclub.json'
              //  sh 'snyk container test sportclub-backend:latest > result.json'
