@@ -4,6 +4,7 @@ pipeline {
         DATE = new Date().format('yy.M')
         TAG = "${DATE}.${BUILD_NUMBER}"
         SNYK_TOKEN = 'e6c8fb1c-4604-4c67-a26b-5b48a5effa3a'
+       // defectDojoAPIKey = '22ef34fa883e7b86a9824e7d9fdf8f77822ce771'
     }
    
     agent {
@@ -39,12 +40,29 @@ pipeline {
        stage('SnykScanning') {
            steps {
                sh 'snyk auth ${SNYK_TOKEN}' 
-               //sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
+               sh 'snyk container test sportclub-backend:latest --json -o results-sportclub.json'
               // sh 'snyk container test sportclub-backend:latest --json > results-sportclub.json'
              //  sh 'snyk container test sportclub-backend:latest > result.json'
-               sh 'snyk test --all-projects'
+               
            }
        }
+       stage('Publish Snyk Report to DefectDojo') {
+            steps {
+                script {
+                    def defectDojoURL = 'http://172.27.59.220:8080/api/v2/'
+                    def defectDojoAPIKey = '22ef34fa883e7b86a9824e7d9fdf8f77822ce771'
+
+                    // Send the Snyk report to DefectDojo
+                    sh """
+                        curl -X POST \
+                        -H 'Authorization: ApiKey ${defectDojoAPIKey}' \
+                        -H 'Content-Type: ./json' \
+                        -d @results-sportclub.json \
+                        ${defectDojoURL}/api/v2/import-snyk/
+                    """
+                }
+            }
+        }
    }
 }
 
