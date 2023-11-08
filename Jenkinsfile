@@ -40,7 +40,7 @@ pipeline {
        stage('SnykScanning') {
            steps {
                sh 'snyk auth ${SNYK_TOKEN}' 
-               sh 'snyk container test sportclub-backend:latest --json '
+               sh 'snyk container test sportclub-backend:latest --json > results-sportclub.json '
               // sh 'snyk container test sportclub-backend:latest --json > results-sportclub.json'
              //  sh 'snyk container test sportclub-backend:latest > result.json'
            }
@@ -54,7 +54,7 @@ pipeline {
                     sh """
                         curl -X POST \
                         -H 'Authorization: ApiKey ${defectDojoAPIKey}' \
-                        -H 'Content-Type: ./json' \
+                        -H 'Content-Type: application/json' \
                         -d @results-sportclub.json \
                         ${defectDojoURL}/api/v2/import-snyk/
                     """
