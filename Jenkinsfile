@@ -42,7 +42,7 @@ pipeline {
                //sh 'snyk container test sportclub-backend:latest --json | snyk-to-html -o results-sportclub.html'
               // sh 'snyk container test sportclub-backend:latest --json > results-sportclub.json'
              //  sh 'snyk container test sportclub-backend:latest > result.json'
-               sh 'snyk test > result.json'
+               sh 'snyk test'
            }
        }
    }
