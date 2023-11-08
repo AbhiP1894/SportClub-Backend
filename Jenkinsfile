@@ -40,7 +40,7 @@ pipeline {
        stage('SnykScanning') {
            steps {
                sh 'snyk auth ${SNYK_TOKEN}' 
-              scrip {
+               script {
                   def snykScanResult = sh(script: 'snyk container test sportclub-backend:latest --json')
                   writeFile file: 'snyk-report.json', text: snykScanResult
               }
