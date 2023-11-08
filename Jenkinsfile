@@ -32,18 +32,17 @@ pipeline {
         //         }
         //     }
         // }  
-      // stage('Docker Build') {
-        //   steps {
-          //     sh 'docker build -t sportclub-backend:latest .'
-           //}
-       //}
+       stage('Docker Build') {
+          steps {
+               sh 'docker build -t sportclub-backend:latest .'
+           }
+       }
        stage('SnykScanning') {
            steps {
                sh 'snyk auth ${SNYK_TOKEN}' 
                sh 'snyk container test sportclub-backend:latest --json -o results-sportclub.json'
               // sh 'snyk container test sportclub-backend:latest --json > results-sportclub.json'
              //  sh 'snyk container test sportclub-backend:latest > result.json'
-               
            }
        }
        stage('Publish Snyk Report to DefectDojo') {
@@ -51,7 +50,6 @@ pipeline {
                 script {
                     def defectDojoURL = 'http://172.27.59.220:8080/api/v2/'
                     def defectDojoAPIKey = '22ef34fa883e7b86a9824e7d9fdf8f77822ce771'
-
                     // Send the Snyk report to DefectDojo
                     sh """
                         curl -X POST \
