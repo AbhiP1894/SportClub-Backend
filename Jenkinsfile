@@ -43,7 +43,7 @@ pipeline {
                // sh 'snyk container test sportclub-backend:latest --json > results-sportclub.json'
                script {
                   // def snykScanResult =
-                      sh(script: 'snyk container test sportclub-backend:latest --json > snyk-report.json')
+                      sh(script: 'snyk container test sportclub-backend:latest --json | tee snyk-report.json')
                     //  if (snykScanResult == 0) {
                     //     // Snyk scan was successful, save the JSON report
                     //     writeFile file: 'snyk-report.json', text: snykScanResult
