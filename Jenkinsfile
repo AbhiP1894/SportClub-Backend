@@ -66,7 +66,7 @@ pipeline {
                         -H 'Authorization: ApiKey ${defectDojoAPIKey}' \
                         -H 'Content-Type: application/json' \
                         -d @snyk-report.json \
-                        ${defectDojoURL}/test/7
+                        ${defectDojoURL}/api/v2/import-scan/
                     """
                 }
             }
