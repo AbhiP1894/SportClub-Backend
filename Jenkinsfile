@@ -59,7 +59,7 @@ pipeline {
             steps {
                 script {
                     def defectDojoURL = 'http://172.27.59.220:8080'
-                    def defectDojoAPIKey = '22ef34fa883e7b86a9824e7d9fdf8f77822ce771'
+                    def defectDojoAPIKey = '11b1a619dd6fd371409cd7e9510ab6b531a2c713'
                     // Send the Snyk report to DefectDojo
                     sh """
                         curl -X POST \
