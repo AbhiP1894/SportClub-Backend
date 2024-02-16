@@ -4,7 +4,7 @@ pipeline {
     //     TAG = "${DATE}.${BUILD_NUMBER}"
     // }
     agent {
-        label 'linux'
+        label 'Trivy_slave_node'
     }
     tools {
             maven 'Maven'
