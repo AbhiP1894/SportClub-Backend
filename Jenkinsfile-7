@@ -45,7 +45,7 @@ pipeline {
         stage('Generate SBOM') {
             steps {
                 echo 'Generating Software Bill of Materials (SBOM)'
-                sh 'trivy image --sbom -o sbom.json abhi_patil/sportclub-backend:latest'
+                sh 'trivy image --format spdx-json --output result.json abhipatil/sportclub-backend:latest'
             }
         }
 
