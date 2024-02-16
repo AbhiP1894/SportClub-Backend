@@ -1,0 +1,76 @@
+pipeline {
+    agent {
+        label 'Trivy_slave_node'
+    }
+    tools {
+            maven 'Maven'
+            jdk 'JDK11'
+    }
+
+    stages {
+        stage('validate') {
+            steps {
+                echo 'VALIDATE'
+                sh 'mvn clean validate'
+            }
+        }
+        stage('Compile') {
+            steps {
+                echo 'COMPILE'
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('package') {
+            steps {
+                echo 'Pakage'
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                echo 'Building Docker Image'
+                sh 'docker build -t abhi_patil/sportclub-backend:latest .'
+            }
+        }
+
+        stage('Scan') {
+            steps { 
+                echo 'Scanning Docker Image for Vulnerabilities'
+                sh 'trivy image --severity HIGH,CRITICAL abhi_patil/sportclub-backend:latest'
+            }
+        }
+
+        stage('Generate SBOM') {
+            steps {
+                echo 'Generating Software Bill of Materials (SBOM)'
+                sh 'trivy image --sbom -o sbom.json abhi_patil/sportclub-backend:latest'
+            }
+        }
+
+        stage('SAST') {
+            steps {
+                echo 'Running Static Application Security Testing (SAST)'
+                sh 'trivy --security-check --no-progress --severity HIGH,CRITICAL abhi_patil/sportclub-backend:latest'
+            }
+        }
+
+        stage('Secret Scanning') {
+            steps {
+                echo 'Scanning Docker Image for Secrets'
+                sh 'trivy image --scan-mode secret abhi_patil/sportclub-backend:latest'
+            }
+        }
+
+        stage('Publish to HTML') {
+            steps { 
+                echo 'Publishing HTML Report'
+                sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl'
+                sh 'mkdir -p reports'
+                sh 'trivy image --ignore-unfixed --vuln-type os,library --format template --template "@./html.tpl" -o reports/trivy-scan.html abhi_patil/sportclub-backend:latest'
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'trivy-scan.html', reportName: 'Trivy Scan', reportTitles: '', useWrapperFileDirectly: true])   
+            }
+        }
+    }
+}
