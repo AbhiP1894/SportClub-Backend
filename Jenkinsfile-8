@@ -1,0 +1,56 @@
+pipeline {
+    agent {
+        label 'Trivy_slave_node'
+    }
+    tools {
+        maven 'Maven'
+        jdk 'JDK11'
+    }
+
+    stages {
+        stage('validate') {
+            steps {
+                echo 'VALIDATE'
+                sh 'mvn clean validate'
+            }
+        }
+        stage('Compile') {
+            steps {
+                echo 'COMPILE'
+                sh 'mvn clean compile'
+            }
+        }
+
+        stage('package') {
+            steps {
+                echo 'Package'
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Scan Secrets') {
+            steps {
+                echo 'Scanning Docker Image for Secrets'
+                sh 'trivy image --security-check abhi_patil/sportclub-backend:latest'
+            }
+        }
+
+        stage('Scan Dockerfile') {
+            steps {
+                echo 'Scanning Dockerfile for Security Issues'
+                sh 'trivy fs --security-check Dockerfile'
+            }
+        }
+
+        stage('Publish to HTML') {
+            steps {
+                echo 'Publishing HTML Report'
+                sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl'
+                sh 'mkdir -p reports'
+                sh 'trivy image --ignore-unfixed --vuln-type os,library --format template --template "@./html.tpl" -o reports/trivy-scan.html abhi_patil/sportclub-backend:latest'
+                archiveArtifacts artifacts: 'trivy-report.html', allowEmptyArchive: true
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'trivy-scan.html', reportName: 'Trivy Scan', reportTitles: '', useWrapperFileDirectly: true])
+            }
+        }
+    }
+}
