@@ -35,13 +35,14 @@ pipeline {
             }
         }
 
+    stages {
         stage('Scan Dockerfile') {
             steps {
                 echo 'Scanning Dockerfile for Security Issues'
-                sh 'trivy fs --security-check Dockerfile'
+                sh 'trivy fs --security-checks config,vuln Dockerfile'
             }
         }
-
+    }
         stage('Publish to HTML') {
             steps {
                 echo 'Publishing HTML Report'
