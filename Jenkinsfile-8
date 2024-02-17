@@ -31,7 +31,7 @@ pipeline {
         stage('Scan Secrets') {
             steps {
                 echo 'Scanning Docker Image for Secrets'
-                sh 'trivy image --security-check abhi_patil/sportclub-backend:latest'
+                sh 'trivy image --secrets abhi_patil/sportclub-backend:latest'
             }
         }
 
