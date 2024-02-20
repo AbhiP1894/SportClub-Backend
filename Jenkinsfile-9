@@ -28,6 +28,14 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
+         stage('SonarQube Scan') {
+            steps {
+                echo 'Running SonarQube analysis'
+                docker.image('sonarqube:latest').inside {
+                    sh 'sonar-scanner' // Run SonarQube scanner
+                }
+            }
+        }
             stage('Build') {
                 steps {
                     sh 'docker build -t abhi_patil/sportclub-backend:latest .'
