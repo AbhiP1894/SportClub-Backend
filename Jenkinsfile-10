@@ -8,18 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('validate') {
-            steps {
-                echo 'VALIDATE'
-                sh 'mvn clean validate'
-            }
-        }
-        stage('Compile') {
-            steps {
-                echo 'COMPILE'
-                sh 'mvn clean compile'
-            }
-        }
         stage('package') {
             steps {
                 echo 'Package'
@@ -32,16 +20,7 @@ pipeline {
                 sh 'docker build -t abhi_patil/sportclub-backend:latest .'
             }
         }
-        stage('SonarQube Scan') {
-            steps {
-                echo 'Running SonarQube analysis'
-                script {
-                    docker.image('sonarqube:latest').inside {
-                        sh 'sonar-scanner' // Run SonarQube scanner
-                    }
-                }
-            }
-        }
+
         stage('Trivy Scan') {
             steps { 
                 echo 'Running Trivy scan'
@@ -61,6 +40,21 @@ pipeline {
                 sh 'mkdir -p reports'
                 sh 'trivy image --ignore-unfixed --vuln-type os,library --format template --template "@./html.tpl" -o reports/trivy-scan.html abhi_patil/sportclub-backend:latest'
                 publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'trivy-scan.html', reportName: 'Trivy Scan', reportTitles: '', useWrapperFileDirectly: true])   
+            }
+        }
+        stage('Job Status') {
+            steps {
+                script {
+              def imageName = 'abhi_patil/sportclub-backend:latest'
+                    def trivyOutput = sh script: "trivy image --exit-code 1 -f json ${imageName}", returnStatus: true
+             if (trivyOutput == 0) {
+                        echo "No critical vulnerabilities found."
+                    } else if (trivyOutput == 1) {
+                        error "Critical vulnerabilities found. Failing the build."
+                    } else {
+                        error "Trivy scan failed with an unexpected exit code: ${trivyOutput}"
+                    }
+                }
             }
         }
     }
