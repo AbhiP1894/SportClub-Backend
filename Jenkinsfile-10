@@ -1,0 +1,67 @@
+pipeline {
+    agent {
+        label 'Trivy_slave_node'
+    }
+    tools {
+        maven 'Maven'
+        jdk 'JDK11'
+    }
+
+    stages {
+        stage('validate') {
+            steps {
+                echo 'VALIDATE'
+                sh 'mvn clean validate'
+            }
+        }
+        stage('Compile') {
+            steps {
+                echo 'COMPILE'
+                sh 'mvn clean compile'
+            }
+        }
+        stage('package') {
+            steps {
+                echo 'Package'
+                sh 'mvn clean package'
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Build Docker image'
+                sh 'docker build -t abhi_patil/sportclub-backend:latest .'
+            }
+        }
+        stage('SonarQube Scan') {
+            steps {
+                echo 'Running SonarQube analysis'
+                script {
+                    docker.image('sonarqube:latest').inside {
+                        sh 'sonar-scanner' // Run SonarQube scanner
+                    }
+                }
+            }
+        }
+        stage('Trivy Scan') {
+            steps { 
+                echo 'Running Trivy scan'
+                sh 'trivy image --severity HIGH,CRITICAL abhi_patil/sportclub-backend:latest'
+            }
+        }
+        stage('Generate Trivy Report') {
+            steps {
+                echo 'Generating Trivy report'
+                sh 'trivy image -f json -o results.html abhi_patil/sportclub-backend:latest'
+            }
+        }
+        stage('Publish Trivy HTML Report') {
+            steps { 
+                echo 'Publishing Trivy HTML report'
+                sh 'curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/html.tpl > html.tpl'
+                sh 'mkdir -p reports'
+                sh 'trivy image --ignore-unfixed --vuln-type os,library --format template --template "@./html.tpl" -o reports/trivy-scan.html abhi_patil/sportclub-backend:latest'
+                publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'reports', reportFiles: 'trivy-scan.html', reportName: 'Trivy Scan', reportTitles: '', useWrapperFileDirectly: true])   
+            }
+        }
+    }
+}
